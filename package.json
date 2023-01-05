@@ -25,7 +25,6 @@
   "dependencies": {
     "gsap": "^3.11.4",
     "scrolltrigger": "^1.0.1",
-    "split-type": "^0.3.3",
-    "text-split": "^0.0.1"
+    "split-type": "^0.3.3"
   }
 }
