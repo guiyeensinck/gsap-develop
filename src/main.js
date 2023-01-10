@@ -24,6 +24,7 @@ function raf(time) {
 }
 
 requestAnimationFrame(raf)
+
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
 let texto = new SplitText('.title-home', {
@@ -31,21 +32,52 @@ let texto = new SplitText('.title-home', {
 })
 let palabras = texto.words
 
+let timeline = gsap.timeline()
+timeline
+  .fromTo(
+    '.menuprincipal',
+    {
+      y: -100,
+    },
+    {
+      y: 50,
+      duration: 2,
+      ease: 'Power2.easeOut',
+    }
+  )
+  .fromTo(
+    palabras,
+    {
+      opacity: 0,
+      y: 1000,
+    },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      stagger: 0.1,
+      ease: 'Power2.easeOut',
+    }
+  )
+  .fromTo(
+    '.cursor-area',
+    {
+      x: '-100%',
+    },
+    {
+      x: '0%',
+
+      duration: 5,
+      ease: 'Power2.easeOut',
+    }
+  )
+
+/* 
 let textoReel = new SplitText('.text-reel', {
   type: 'words',
 })
 let palabrasReel = textoReel.words
-
-/* 
-gsap.from('.heading', {
-  opacity: 0,
-  delay: 1,
-})
-
-let palabras = texto.words
-
-*/
-
+ */
 gsap.fromTo(
   '.linearoja',
   {
@@ -64,7 +96,7 @@ gsap.fromTo(
       scrub: true,
       end: 'top 20%',
 
-      markers: true,
+      markers: false,
     },
   }
 )
@@ -112,7 +144,7 @@ gsap.fromTo(
     },
   }
 )
-gsap.from(palabras, {
+/* gsap.from(palabras, {
   opacity: 0,
   yPercent: 200,
   ease: 'back.out',
@@ -142,21 +174,69 @@ gsap.from(palabrasReel, {
     end: 'top 20%',
     markers: false,
   },
-})
+}) */
+
+gsap.fromTo(
+  '.title-about',
+  {
+    fontSize: '50vw',
+    width: '100%',
+    x: '-300%',
+  },
+  {
+    fontSize: '10vw',
+    x: '0%',
+    ease: 'Power2.easeOut',
+    duration: 2,
+
+    scrollTrigger: {
+      trigger: '.aboutus',
+      toggleActions: 'restart pause restart pause',
+      start: 'top center',
+      end: 'bottom bottom',
+      scrub: 2,
+      markers: true,
+    },
+  }
+)
+
+gsap.fromTo(
+  '.texto-usgrande',
+  {
+    fontSize: '40vw',
+    width: '100%',
+    x: '-300%',
+  },
+  {
+    fontSize: '7vw',
+    x: '0%',
+    ease: 'Power2.easeOut',
+    duration: 2,
+
+    scrollTrigger: {
+      trigger: '.aboutus',
+      toggleActions: 'restart pause restart pause',
+      start: 'top center',
+      end: 'bottom bottom',
+      scrub: 2,
+      markers: false,
+    },
+  }
+)
 
 //gsap.set('.cursor-area', { xPercent: 0, yPercent: 0 })
 
 const ball = document.querySelector('.cursor-area')
 const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
-const mouse = { x: pos.x + 10, y: pos.y + 10 }
+const mouse = { x: pos.x - 1000, y: pos.y - 1000 }
 const speed = 0.1
 
 const xSet = gsap.quickSetter(ball, 'x', 'px')
 const ySet = gsap.quickSetter(ball, 'y', 'px')
 
 window.addEventListener('mousemove', (e) => {
-  mouse.x = e.x
-  mouse.y = e.y
+  mouse.x = e.x - 50
+  mouse.y = e.y - 50
 })
 
 gsap.ticker.add(() => {
@@ -168,55 +248,3 @@ gsap.ticker.add(() => {
   xSet(pos.x)
   ySet(pos.y)
 })
-
-/* fromTo(
-  '.videohome',
-  {
-    width: 0,
-    y: 10000,
-  },
-  {
-    y: 0,
-    width: '100%',
-    duration: 2,
-  }
-) */
-let timeline = gsap.timeline()
-timeline
-  .fromTo(
-    '.menuprincipal',
-    {
-      y: -100,
-    },
-    {
-      y: 50,
-      duration: 1,
-      ease: 'Power2.easeOut',
-    }
-  )
-  .fromTo(
-    palabras,
-    {
-      opacity: 0,
-      y: 1000,
-    },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      stagger: 0.1,
-      ease: 'Power2.easeOut',
-    }
-  )
-  .fromTo(
-    '.cursor-area',
-    {
-      x: -1000,
-    },
-    {
-      x: 0,
-
-      duration: 5,
-      ease: 'Power2.easeOut',
-    }
-  )
